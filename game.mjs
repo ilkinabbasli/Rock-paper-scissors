@@ -1,39 +1,100 @@
-import {db, set, ref, onValue, push, remove} from './module.js';
+import { db, set, ref, onValue, push, remove } from './module.js';
 
 const branch = ref(db, '/players')
+var userName;
+var choice = null;
 
-// $("#click").on("click", function(){
-//     var userName = $("#userName").val();
-//     var obj = push (branch);
-//     set (obj, {
-//         userName
-//     });
-    
-//     // var userNamePush = push(ref(db, '/'));
-//     // set(messagePush, message);
-//     $('#user').empty();
-//     var h2 = $('<h2>');
-//     h2.html('Hi ' + userName + ' ! You are player 1' );
-//     h2.attr('class', 'text-center');
-//     $('#user').append(h2);
-// })
-
-
-
-$('#click').on('click', function(){
-    var playerNameValue = $('#userName').val();
-    var player = 'players';
-    var playerCount = 0
-    playerCount++;
-    var playerName = 'player' + playerCount;
-    var path = ref(db, `/${player}/${playerName}`);
-    const playerData = {
-        name: playerNameValue,
-    }
-    set(path, playerData);
+$("#click").on("click", function (e) {
+    e.preventDefault
+    userName = $("#userName").val();
+    arr.push({ 
+        name: userName,
+        choice: choice,
+    });
+    set(branch, arr);
+    console.log(arr.length);
     $('#user').empty();
     var h2 = $('<h2>');
-    h2.html('Hi ' + playerNameValue + ' ! You are player ' + playerCount );
+    if (arr.length === 1) {
+
+        h2.html('Hi ' + userName + ' ! You are player 1');
+
+    }
+    else {
+
+        h2.html('Hi ' + userName + ' ! You are player 2');
+
+    }
+
     h2.attr('class', 'text-center');
     $('#user').append(h2);
+
+
+
 })
+var arr = [];
+onValue(branch, function (snapshot) {
+    var obj = snapshot.val();
+    console.log(obj);
+
+
+
+    arr = obj || [];
+    if (arr.length > 2) {
+        arr = [];
+    }
+    
+    
+
+
+    if (arr[0] && arr[0].name === userName) {
+
+        $('#userName1').empty();
+        $('#userName1').append(arr[0].name);
+        
+
+        if (arr[1]) {
+            $('#userName2').empty();
+            $('#userName2').append(arr[1].name);
+            
+
+
+        }
+    } else if (arr[0] && arr[0].name !== userName) {
+        $('#userName1').empty();
+        $('#userName1').append(arr[1].name);
+        $('#userName2').empty();
+        $('#userName2').append(arr[0].name);
+        $('#choice1').show();
+        $('#choice2').show();
+        
+    }
+    
+
+
+
+});
+
+
+$('#inp-form').on('click', function(e){
+    e.preventDefault();
+
+    const message = $('#message').val();
+
+    var messagePush = push(ref(db, '/messages'));
+    set(messagePush, message);
+
+    $('#message').val() = '';
+});
+
+onValue(ref(db, '/messages'), function(snapshot) {
+    const message = snapshot.val();
+    const chat = $('#chat');
+
+    $(chat).empty();
+
+    for(let [key, message] of Object.entries(message)) {
+        
+       
+    }
+});

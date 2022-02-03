@@ -7,6 +7,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <style>
+        #choice1, #choice2 {
+            display: none;
+            list-style: none;
+            padding-left: 0;
+
+        }
+        
+       
         .box {
             height: 200px;
             padding: 10px;
@@ -59,7 +67,12 @@
 
                 <div class="col-4">
                     <div class=" box text-center">
-                        <h3>Waiting for Player 1</h3>
+                        <h3 id="userName1">Waiting for Player 1</h3>
+                        <ul id="choice1">
+                            <li id="Rock1">Rock</li>
+                            <li id="Paper1">Paper</li>
+                            <li id="Scissors1">Scissors</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-4">
@@ -68,7 +81,12 @@
                 </div>
                 <div class="col-4">
                     <div class="box text-center">
-                        <h3>Waiting for Player 2</h3>
+                        <h3 id="userName2">Waiting for Player 2</h3>
+                        <ul id="choice2">
+                            <li id="Rock2">Rock</li>
+                            <li id="Paper2">Paper</li>
+                            <li id="Scissors2">Scissors</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -76,10 +94,10 @@
             <div class="custom-container"> 
                 
                 <form class="d-flex flex-column" action="">
-                    <textarea class="d-block" name="" id="" cols="30" rows="10"></textarea>
+                    <textarea class="d-block" name="" id="chat" cols="30" rows="10"></textarea>
                     <div>
-                        <input class="my-2 send" type="text">
-                        <button>Send</button>
+                        <input id="message" class="my-2 send" type="text">
+                        <button id="inp-form" >Send</button>
                     </div>
                 </form> 
             </div>
